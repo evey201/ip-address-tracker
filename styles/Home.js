@@ -4,7 +4,7 @@ import tw from 'tailwind-styled-components'
 const Headers = styled.div`
   margin: 10px;
   ${'' /* background-color: rgb(0 0 0); */}
-  color: #ffffff;
+  color: var(--color-dark-gray);
 `
 
 export const HeaderWrapper = tw(Headers)`
