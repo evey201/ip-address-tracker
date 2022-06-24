@@ -29,6 +29,10 @@ export const SubmitButton = styled.button`
   border: 0;
   border-radius: 0 10px 10px 0;
 
+  &:hover {
+    background-color: var(--color-very-dark-gray);
+  }
+
   &::after {
     content: '';
     width: 11px;
