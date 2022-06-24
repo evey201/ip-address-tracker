@@ -9,22 +9,23 @@ export const OverallContainer = styled.div`
     background-color: #ffffff;
     border-radius: 10px;
     position: absolute;
-    bottom: -215px;
+    bottom: -80px;
     z-index: 5;
     left: 16px;
     right: 16px;
 
     @media (min-width: 768px) {
         max-width: 89%;
-        left: unset;
-        right: unset;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: max-content;
+        
     }
 
     @media (min-width: 1024px) {
         grid-template-columns: repeat(4, 1fr);
         grid-template-rows: max-content;
         row-gap: unset;
-        bottom: -75px;
+        bottom: -90px;
     }
 `
 
