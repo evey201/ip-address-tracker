@@ -15,7 +15,7 @@ export const OverallContainer = styled.div`
     right: 16px;
 
     @media (min-width: 768px) {
-        max-width: 89%;
+        ${'' /* max-width: 89%; */}
         grid-template-columns: repeat(4, 1fr);
         grid-template-rows: max-content;
         
