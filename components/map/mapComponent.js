@@ -15,7 +15,7 @@ export const MapComponent = ({ position }) => {
           height: '100vh',
         }}
         center={position}
-        zoom={15}
+        zoom={10}
       >
         <Marker icon="/icons/location.svg" position={center} />
       </GoogleMap>

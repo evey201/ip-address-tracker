@@ -34,7 +34,7 @@ const Home = ({ geolocation }) => {
             asn_org: isp,
         } = geolocationData
         const location = `${city}, ${country}, ${zip}`
-        console.log(location)
+        // console.log(locationInfo)
         console.log('geolocationData::', geolocationData)
         setLocationInfo({
             ip,
@@ -99,11 +99,12 @@ const Home = ({ geolocation }) => {
 
 export async function getStaticProps() {
   const geolocation = await fetchData('https://ifconfig.co/json')
-  console.log(geolocation)
+//   console.log(geolocation)
   return {
     props: {
       geolocation,
     },
   }
 }
+
 export default Home
