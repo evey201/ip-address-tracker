@@ -1,31 +1,16 @@
 import {
-    OverallContainer,
     CardContainer,
     Title,
-    Description
+    Description,
 } from './infoCard.styled'
 
 export const InfoCard = ({ title, description }) => {
-    return ( 
+    return (
         <>
-            <OverallContainer>
-                <CardContainer>
-                    <Title>{title?.toUpperCase() || 'Here'}</Title>
-                    <Description>{description || 'Broeoo'}</Description>
-                </CardContainer>
-                <CardContainer>
-                    <Title>{title?.toUpperCase() || 'Here'}</Title>
-                    <Description>{description || 'Broeoo'}</Description>
-                </CardContainer>
-                <CardContainer>
-                    <Title>{title?.toUpperCase() || 'Here'}</Title>
-                    <Description>{description || 'Broeoo'}</Description>
-                </CardContainer>
-                <CardContainer>
-                    <Title>{title?.toUpperCase() || 'Here'}</Title>
-                    <Description>{description || 'Broeoo'}</Description>
-                </CardContainer>
-            </OverallContainer>
+            <CardContainer>
+                <Title>{title?.toUpperCase()}</Title>
+                <Description>{description}</Description>
+            </CardContainer>
         </>
-    );
+    )
 }

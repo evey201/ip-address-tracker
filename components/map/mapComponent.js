@@ -1,7 +1,7 @@
 import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api'
 // import { useCallback } from 'react'
 
-const MapComponent = ({ position }) => {
+export const MapComponent = ({ position }) => {
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: process.env.googleMapsApiKey,
@@ -33,4 +33,3 @@ const MapComponent = ({ position }) => {
   )
 }
 
-export default MapComponent

@@ -4,13 +4,14 @@ import {
     SubmitButton
 } from './search.styled'
 
-export const Search = ({ value, onChange  }) => {
+export const Search = ({ value, onChange, onSearch  }) => {
 
     const handleChange = e => onChange(e.target.value)
 
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log('component working')
+        onSearch()
     }
     return ( 
         <>

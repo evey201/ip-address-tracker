@@ -1,49 +1,66 @@
-import React from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import Head from 'next/head'
-// import Image from 'next/image'
-// import styles from '../styles/Home.module.css'
-import { 
-  BackgroundWrapper, 
-  Wrapper, 
-  Title, 
-  SearchInputWrapper,
-  InfoCardWrapper
+import {
+    BackgroundWrapper,
+    Wrapper,
+    Title,
+    SearchInputWrapper,
+    InfoCardWrapper,
+    MapContainer,
 } from '../styles/Home'
-import { Search, InfoCard } from '../components'
+import fetchData from '../utils/fetch'
+import { Search, InfoCard, MapComponent } from '../components'
+import { LocationInfos } from '../constants/locationInfo'
 
-const data = [
-    {
-        id: 1,
-        location: 'New jersey',
-        IPAddress: '192.258.264.101',
-        timezone: 'UTC-05:00',
-        isp: 'spaceX',
-    },
-    {
-        id: 1,
-        location: 'jersey',
-        IPAddress: '192.258.264.101',
-        timezone: 'UTC-05:00',
-        isp: 'spaceXx',
-    },
-    {
-        id: 1,
-        location: 'Naw jersey',
-        IPAddress: '192.258.264.101',
-        timezone: 'UTC-05:00',
-        isp: 'spaceXe',
-    },
-    {
-        id: 1,
-        location: 'New jerseys',
-        IPAddress: '192.258.264.101',
-        timezone: 'UTC-05:00',
-        isp: 'spaceXdf',
-    },
-]
-console.log(data)
+const Home = ({ geolocation }) => {
+    const [searchValue, setSearchValue] = useState('')
+    const [locationInfo, setLocationInfo] = useState({
+        ip: '',
+        location: '',
+        timezone: '',
+        isp: '',
+        lat: 0,
+        lng: 0,
+    })
+    const handleGeolocation = useCallback((geolocationData) => {
+        const {
+            latitude: lat,
+            longitude: lng,
+            ip,
+            country,
+            city,
+            zip_code: zip,
+            time_zone: timezone,
+            asn_org: isp,
+        } = geolocationData
+        const location = `${city}, ${country}, ${zip}`
+        console.log(location)
+        console.log('geolocationData::', geolocationData)
+        setLocationInfo({
+            ip,
+            location,
+            timezone,
+            isp,
+            lat,
+            lng,
+        })
+    }, [])
 
-export default function Home() {
+    const handleSearch = async () => {
+        const geolocation = await fetchData(
+            `/api/geolocation?ip=${searchValue}`
+        )
+        handleGeolocation(geolocation)
+    }
+
+    useEffect(() => {
+        if (geolocation) {
+            handleGeolocation(geolocation)
+            console.log('home::', geolocation)
+            // console.log('locationInfo::', locationInfo)
+        }
+    }, [geolocation, handleGeolocation])
+
     return (
         <>
             <Head>
@@ -53,17 +70,40 @@ export default function Home() {
 
             <Wrapper>
                 <BackgroundWrapper>
-                  <Title>
-                    IP Address Tracker
-                  </Title>
-                  <SearchInputWrapper>
-                    <Search />
-                  </SearchInputWrapper>
-                  <InfoCardWrapper>
-                    <InfoCard />
-                  </InfoCardWrapper>
+                    <Title>IP Address Tracker</Title>
+                    <SearchInputWrapper>
+                        <Search value={searchValue} onChange={setSearchValue} onSearch={handleSearch} />
+                    </SearchInputWrapper>
+                    <InfoCardWrapper>
+                      {LocationInfos.map(({title, key}) => (
+                        <InfoCard 
+                          key={title}
+                          title={title}
+                          description={locationInfo[key]}
+                        />
+                      ))}
+                    </InfoCardWrapper>
                 </BackgroundWrapper>
+                <MapContainer>
+                    <MapComponent
+                        position={{
+                            lat: locationInfo.lat,
+                            lng: locationInfo.lng,
+                        }}
+                    />
+                </MapContainer>
             </Wrapper>
         </>
     )
 }
+
+export async function getStaticProps() {
+  const geolocation = await fetchData('https://ifconfig.co/json')
+  console.log(geolocation)
+  return {
+    props: {
+      geolocation,
+    },
+  }
+}
+export default Home

@@ -1,4 +1,4 @@
-export const locationInfos = [
+export const LocationInfos = [
     {
       key: 'ip',
       title: 'IP ADDRESS',
