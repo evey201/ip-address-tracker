@@ -10,13 +10,12 @@ export const MapComponent = ({ position }) => {
   return (
     isLoaded && (
       <GoogleMap
-        mapContainerClassName={{
+        mapContainerStyle={{
           width: '100%',
           height: '100vh',
         }}
         center={position}
-        zoom={10}
-        // onLoad={onLoad}
+        zoom={15}
       >
         <Marker icon="/icons/location.svg" position={center} />
       </GoogleMap>
