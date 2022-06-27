@@ -4,9 +4,6 @@ const nextConfig = {
   compiler: {
     styledComponents: true,
   },
-  env: {
-    googleMapsApiKey: 'AIzaSyBgwV6UNcSTr1_7Ansh5vIMPDElbvhtFeA'
-  }
 }
 
 module.exports = nextConfig

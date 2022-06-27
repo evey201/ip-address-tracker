@@ -1,33 +1,24 @@
-import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api'
-// import { useCallback } from 'react'
+import { useMemo } from 'react'
+import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api'
 
 export const MapComponent = ({ position }) => {
-  const { isLoaded } = useJsApiLoader({
-    id: 'google-map-script',
-    googleMapsApiKey: process.env.googleMapsApiKey,
+  const { isLoaded } = useLoadScript({
+    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY
   })
 
-  // const onLoad = useCallback(
-  //   () => mapInstance => {
-  //     mapInstance.setOptions({
-  //       zoom: 15,
-  //     })
-  //   },
-  //   []
-  // )
-
+  const center = useMemo(() => (position), [position])
   return (
     isLoaded && (
       <GoogleMap
-        mapContainerStyle={{
+        mapContainerClassName={{
           width: '100%',
-          height: '100%',
+          height: '100vh',
         }}
         center={position}
-        zoom={15}
+        zoom={10}
         // onLoad={onLoad}
       >
-        <Marker icon="/icons/location.svg" position={position} />
+        <Marker icon="/icons/location.svg" position={center} />
       </GoogleMap>
     )
   )

@@ -57,5 +57,5 @@ export const InfoCardWrapper = styled.div`
     }
 `
 export const MapContainer = styled.div`
-  ${'' /* height: 100%; */}
+  height: 100%;
 `
